@@ -9,36 +9,65 @@
       </div>
 
       <!-- Login Form -->
-      <form>
+      <form v-on:submit.prevent="login">
         <input
           type="text"
           id="login"
           class="fadeIn second"
           name="login"
-          placeholder="login"
+          placeholder="User"
+          v-model="user"
         />
         <input
           type="text"
           id="password"
           class="fadeIn third"
           name="login"
-          placeholder="password"
+          placeholder="Password"
+          v-model="password"
         />
         <input type="submit" class="fadeIn fourth" value="Log In" />
       </form>
 
       <!-- Remind Passowrd -->
-      <div id="formFooter">
-        <a class="underlineHover" href="#">Forgot Password?</a>
+      <div class="alert alert-danger" role="alert" v-if="error">
+        {{ error_msg }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "LogIn",
   components: {},
+  data: function () {
+    return {
+      user: "",
+      password: "",
+      error: false,
+      error_msg: "",
+    };
+  },
+  methods: {
+    login() {
+      let json = {
+        usuario: this.user,
+        password: this.password,
+      };
+      axios.post("https://api.solodata.es/auth", json).then((data) => {
+        console.log(data);
+        if (data.data.status == "ok") {
+          localStorage.token = data.data.result.token;
+          this.$router.push("DashBoard");
+        } else {
+          this.error = true;
+          this.error_msg = data.data.result.error_msg;
+        }
+      });
+    },
+  },
 };
 </script>
 
