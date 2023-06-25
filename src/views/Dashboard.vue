@@ -14,11 +14,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="paciente in Listapacientes" :key="paciente.PacienteId">
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+          <tr
+            v-for="paciente in Listapacientes"
+            :key="paciente.PacienteId"
+            v-on:click="editar(paciente.PacienteId)"
+          >
+            <th scope="row">{{ paciente.PacienteId }}</th>
+            <td>{{ paciente.Nombre }}</td>
+            <td>{{ paciente.DIN }}</td>
+            <td>{{ paciente.Telefono }}</td>
+            <td>{{ paciente.Correo }}</td>
           </tr>
         </tbody>
       </table>
@@ -43,6 +48,11 @@ export default {
   components: {
     HeaderLogin,
     FooterLogin,
+  },
+  methods: {
+    editar(id) {
+      this.$router.push("/editar/" + id);
+    },
   },
   mounted: function () {
     let direction = "https://api.solodata.es/pacientes?page=" + this.pagina;
