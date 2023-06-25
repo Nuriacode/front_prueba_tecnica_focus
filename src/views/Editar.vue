@@ -95,7 +95,13 @@
           <button type="button" class="btn btn-primary" v-on:click="editar()">
             Editar
           </button>
-          <button type="button" class="btn btn-danger margen">Eliminar</button>
+          <button
+            type="button"
+            class="btn btn-danger margen"
+            v-on:click="eliminar()"
+          >
+            Eliminar
+          </button>
           <button
             type="button"
             class="btn btn-dark margen"
@@ -142,6 +148,18 @@ export default {
     },
     salir() {
       this.$router.push("/dashboard");
+    },
+    eliminar() {
+      var enviar = {
+        paciente: this.form.pacienteId,
+        token: this.form.token,
+      };
+      axios
+        .delete("https://api.solodata.es/pacientes", { header: enviar })
+        .then((data) => {
+          console.log(data);
+          this.$router.push("/dashboard");
+        });
     },
   },
   mounted: function () {
