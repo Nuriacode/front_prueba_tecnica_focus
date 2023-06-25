@@ -1,51 +1,54 @@
 <template>
   <div>
-    <Header />
+    <HeaderLogin />
 
     <div class="container">
       <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Correo</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr v-for="paciente in Listapacientes" :key="paciente.PacienteId">
             <th scope="row">1</th>
             <td>Mark</td>
             <td>Otto</td>
             <td>@mdo</td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
         </tbody>
       </table>
     </div>
 
-    <Footer />
+    <FooterLogin />
   </div>
 </template>
 
 <script>
-import Header from "@/components/Header.vue";
-import Footer from "@/components/Footer.vue";
+import HeaderLogin from "@/components/HeaderLogin.vue";
+import FooterLogin from "@/components/FooterLogin.vue";
+import axios from "axios";
 export default {
   name: "DashBoard",
+  data() {
+    return {
+      Listapacientes: null,
+      pagina: 1,
+    };
+  },
   components: {
-    Header,
-    Footer,
+    HeaderLogin,
+    FooterLogin,
+  },
+  mounted: function () {
+    let direction = "https://api.solodata.es/pacientes?page=" + this.pagina;
+    axios.get(direction).then((data) => {
+      this.Listapacientes = data.data;
+    });
   },
 };
 </script>
