@@ -60,7 +60,7 @@ export default {
         console.log(data);
         if (data.data.status == "ok") {
           localStorage.token = data.data.result.token;
-          this.$router.push("DashBoard");
+          this.$router.push("dashboard");
         } else {
           this.error = true;
           this.error_msg = data.data.result.error_msg;
