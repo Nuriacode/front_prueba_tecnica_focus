@@ -3,6 +3,10 @@
     <HeaderLogin />
 
     <div class="container">
+      <button class="btn btn-primary left" v-on:click="nuevo()">
+        Nuevo Paciente
+      </button>
+
       <table class="table table-hover">
         <thead>
           <tr>
@@ -53,6 +57,9 @@ export default {
     editar(id) {
       this.$router.push("/editar/" + id);
     },
+    nuevo(id) {
+      this.$router.push("/nuevo/" + id);
+    },
   },
   mounted: function () {
     let direction = "https://api.solodata.es/pacientes?page=" + this.pagina;
@@ -63,4 +70,9 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped></style>
+<style scoped>
+.left {
+  margin-bottom: 15px;
+  text-align: left;
+}
+</style>

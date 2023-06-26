@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import LogIn from "../views/LogIn.vue";
 import DashBoard from "../views/Dashboard.vue";
 import EditarUsuario from "../views/Editar.vue";
+import NuevoUsuario from "../views/Nuevo.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/editar/:id",
     name: "Editar",
     component: EditarUsuario,
+  },
+  {
+    path: "/nuevo",
+    name: "Nuevo",
+    component: NuevoUsuario,
   },
 ];
 
